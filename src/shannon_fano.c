@@ -3,9 +3,8 @@
 #include <stdlib.h>
 
 
-Symbol simbolos[256];
 
-char teste[20] = "ola meus amigos";
+char teste[20] = "isabeli";
 
 /*Checks the length of a string*/
 int strlent(char * str){
@@ -26,19 +25,20 @@ int get_count_char(char target, char *str){
     return j;
 }
 
-int add_new_symbol(Symbol *srs, char c){
-    for (int i = 0; i <= 256; i++){
-        if (srs[i].character == c) {
-            srs[i].frequency++;
+int add_new_symbol(Simbolos *srs, char c){
+    for (int i = 0; i <= srs->len; i++){
+        if (srs->simbolos[i].character == c) {
+            srs->simbolos[i].frequency++;
+            return 0;
         }
-        else {
-            Symbol newS;
-            newS.character = c;
-            newS.frequency = 0;
-            srs[i] = newS;
-        }
-        return 0;
     }
+
+    Symbol s = {0};
+    s.character = c;
+    s.frequency = 1;
+    srs->simbolos[srs->len] = s;
+    srs->len++;
+
 }
 
 
@@ -62,18 +62,42 @@ int symb_sort(Symbol *srs, int size) {
 }
 
 
-int print_symb(Symbol *srs) {
-    for (int i = 0; i < 256; i++) {
-        if (srs[i].character != NULL) {
-            printf("char %c |" " freq %d | \n", srs[i].character, srs[i].frequency);
-        }
+int print_symb(Symbol *srs, int len) {
+    printf("---------------\n");
+    for (int i = 0; i < len; i++) {
+        printf("char %c |" " freq %d | \n", srs[i].character, srs[i].frequency);
     }
+    printf("---------------\n");
 }
 
-int main() {
-    for (int i = 0; i < strlent(teste); i++){
-        add_new_symbol(simbolos, teste[i]);
+int get_total(Symbol *srs, int len) {
+    int total = 0;
+    for(int i = 0; i < len; i++) {
+        total += srs[i].frequency;
     }
-    print_symb(simbolos);
+    return total;
+}
+
+int shannon_fano(Simbolos *s){
+    symb_sort(s->simbolos, s->len);
+    int total = get_total(s->simbolos, s->len);
+
+    
+
+
+}
+
+
+
+int main() {
+
+    Simbolos s = {0};
+
+    for (int i = 0; i < strlent(teste); i++){
+        add_new_symbol(&s, teste[i]);
+    }
+    symb_sort(s.simbolos, s.len);
+    print_symb(s.simbolos, s.len);
+    printf("%d", get_total(s.simbolos, s.len));
     return 0;
 }

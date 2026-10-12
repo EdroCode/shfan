@@ -3,6 +3,7 @@
 typedef struct {
     unsigned char character;
     unsigned int frequency;
+    char code;
 } Symbol;
 
 typedef struct {
