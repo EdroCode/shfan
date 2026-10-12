@@ -4,7 +4,7 @@
 
 
 
-char teste[20] = "isabeli";
+char teste[20] = "ola";
 
 /*Checks the length of a string*/
 int strlent(char * str){
@@ -65,9 +65,10 @@ int symb_sort(Symbol *srs, int size) {
 int print_symb(Symbol *srs, int len) {
     printf("---------------\n");
     for (int i = 0; i < len; i++) {
-        printf("char %c |" " freq %d | \n", srs[i].character, srs[i].frequency);
+        printf("char %c |" " freq %d | code %c \n", srs[i].character, srs[i].frequency, srs[i].code);
     }
     printf("---------------\n");
+    return 0;
 }
 
 int get_total(Symbol *srs, int len) {
@@ -81,8 +82,7 @@ int get_total(Symbol *srs, int len) {
 int shannon_fano(Simbolos *s){
     symb_sort(s->simbolos, s->len);
     int total = get_total(s->simbolos, s->len);
-
-    
+    return 0;
 
 
 }
@@ -96,8 +96,7 @@ int main() {
     for (int i = 0; i < strlent(teste); i++){
         add_new_symbol(&s, teste[i]);
     }
-    symb_sort(s.simbolos, s.len);
+    shannon_fano(&s);
     print_symb(s.simbolos, s.len);
-    printf("%d", get_total(s.simbolos, s.len));
     return 0;
 }
